@@ -21,6 +21,8 @@ import java.io.IOException;
 
 import javax.xml.namespace.QName;
 
+import com.fasterxml.jackson.core.json.JsonWriteContext;
+import com.fasterxml.jackson.dataformat.xml.deser.XmlTokenStream;
 import com.ning.billing.recurly.model.RecurlyObject;
 import com.ning.billing.recurly.model.RecurlyObjects;
 
@@ -48,7 +50,7 @@ public class RecurlyObjectsSerializer<T extends RecurlyObjects<U>, U extends Rec
 
         final ToXmlGenerator xmlgen = (ToXmlGenerator) jgen;
         // Nested RecurlyObjects
-        xmlgen.getOutputContext().writeFieldName(elementName);
+        ((JsonWriteContext)xmlgen.getOutputContext()).writeFieldName(elementName);
         boolean firstValue = true;
         for (final U value : values) {
             if (firstValue) {
